@@ -1,0 +1,97 @@
+Browsing the File system :
+
+Linux Dile Hierarchy Concepts-
+
+ 1. files and directories are organized in to a single-rooted invert tree structure.
+ 2. file system begins at the root directory, represented by a lone / (forward slash) character.
+ 3. Names are case-sensitive.
+ 4. Paths are delimited by /
+
+ Some Impotent Directories- 
+1. home Directories: /root, /home/username
+2. user executalbes: /bin, /usr/bin, /usr/local/bin
+3. system executables: /sbin, /usr/sbin, /usr/local/sbin
+4. othet mountpoints: /media, /mnt
+5. configuration files: /etc
+6. temporary files: /tmp
+7. Kernel and bootloader: /boot
+8. Server data: /var, /srv
+9. system information: /proc, /sys
+10. shared libraries: /lib, /usr/lib, /usr/local/lib
+
+Current working directory -
+ #pwd
+
+ file and directory names- 
+1. names may be up to 255 characters
+2. all characters are valid, except the forward-slash
+3. names are case-sensitive example-: MAIL, Mail, mail, mAiL 
+
+
+ Absolute and Relative Path names- 
+1.Absolute path names 
+ >begins with forward slash
+ >complete road map to file location
+ >can be used anytime you wish to specify a file name
+ 2.Relative path names 
+ >do not begin with a slash
+ >specify location relative to your current working directory
+ >can be used as a shorter way to specify a file name
+ Changing Directories-
+1. cd change directory
+ to an absolute and relative path:
+ #cd /home/johe
+ #cd project/hello
+ 2. to a directory one level up:
+ #cd ..
+ 3. ro your home directory
+ #cd
+ 4. to your previous working directory
+ #cd -
+
+Listing Directory contents- 
+ 1. lists the contents of the current directory or a specified directory  
+ #ls [options] filename/directoryname
+ example-:
+ #ls -a (include hidden files)
+ #ls -l (display extra information)
+ #ls -R (recurse through directories)
+ #ls -ld (directory and symlink information)
+
+Copying files and Directories-
+1. cp copy files and directories
+#cp [options] source_filename destination_filename
+2. more than one file may be copied at a time if the destination is a directory.
+#cp [options] file1 file2 file3 destination
+
+a few common options-
+
+ -i : (interactive) ask before overwritten a file
+ -r : (recursive) recursively copy an entire directory
+ -a : (archive) copies files and directory recursively
+
+ 3. if the destination is a directory the copy is placed there
+ 4. if the destination is file the copy overwrites the destination
+ 5. if the destination does not exist, the copy is renamed.
+
+Moving and renaming files and directories- 
+ 1. mv move and rename files and directories
+ #mv [option] source_filenamedestination
+ 2. more than one file may be copied at a time if the destination is a directory.
+ #mv [option] file file file destination
+
+Creating and removing files Creating and removing directory -
+ 1. mkdir directory name
+ 2. rmdir remove empty directories
+ 3. rm -r recursively remove directory tree
+
+Create and Delete file-
+ 1. touch - create empty files or update file timestamps
+ 2. vi
+ 3. cat >filename write some data ctrl+d
+ 4.to delete a file
+ #rm filename
+ 5. to delete a directory
+ #rm -r directory name
+ 6. to delete a file or directory forcefully  
+ #rf -rf filename/directoryname 
