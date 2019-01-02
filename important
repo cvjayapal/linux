@@ -1,0 +1,11 @@
+1) How to view Linux kernel parameters for currently booted system?
+Answer: To display the Linux kernel command line parameters given for the current booted system use any one of the following Linux commands:
+[sysctl -a
+sysctl -a | more
+sysctl -a | grep 'something'
+cat /proc/cmdline].
+
+2)How do I know if my Linux is 32 bit or 64 bit?
+Answer: Multiple answers lscpu, grep -o -w 'lm' /proc/cpuinfo | sort -u , getconf LONG_BIT , uname -i & sudo lshw -c cpu
+
+3) 
