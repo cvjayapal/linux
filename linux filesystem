@@ -1,0 +1,36 @@
+Linux File System 
+Red Hat Linux has a hierarchical file system. The top-most directory—known as the root directory—of the file system contains several other directories, sometimes called sub-directories. Basic File system Hierarchy Standard (FHS) Directories.
+
+/: The root directory, the top-level directory in the FHS. All other directories are sub-directories of root, which is always mounted on some partition.
+/bin:
+Contains binary executable files used by user, administrator, and operating system.
+/boot:
+Contains file required for booting the system
+/dev:
+Contains files associated with the devices attached to the system
+/etc:
+Contains configuration files of the application in the system.
+/lib:
+Contains library files required by the executable files stored in /bin directory.
+/media:
+Contains mount point for the removable media attached to the system
+/mnt:
+Contains mount points for mounted file system.
+/opt:
+Contains third party software application.
+/proc:
+Contains files that represent the current state of kernel.
+/sbin:
+contains binary executable files used for system booting and recovery operation and not accessed by regular user.
+/srv:
+Contains data files used by services, such as WWW and FTP
+/sys:
+Contains files that represent the state of the kernel.
+/usr:
+Contains user related files, program, and documentation.
+/var:
+Contains log files, error messages, cache data and other files.
+/tmp:
+Contains temporary files created by application, which are deleted at system reboot.
+/home:
+Each user on the system has a home directory. It is the location where the user arrives first logging in to the system.
