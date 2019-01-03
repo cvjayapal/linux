@@ -8,4 +8,56 @@ cat /proc/cmdline].
 2)How do I know if my Linux is 32 bit or 64 bit?
 Answer: Multiple answers lscpu, grep -o -w 'lm' /proc/cpuinfo | sort -u , getconf LONG_BIT , uname -i & sudo lshw -c cpu
 
-3) 
+3) The CPU information detected by the OS
+
+Command: cat /proc/cpuinfo or lscpu
+
+4) Load Averages
+Command: cat /proc/loadavg
+Exp: Load average is the average number of processes waiting to be executed by the operating system over a given time period.
+
+5)
+
+
+awk:	Pattern scanning and processing language
+bash:	The Bourne again Shell
+cat:	Concatenates files and prints onto standard output
+chgrp:	Changes the group ownership
+chmod:	Changes file access permissions
+chown:	Changes file ownership permissions
+cp:	Copies files and directories
+cpio:	Copies files to and from archives
+csh	C-shell
+cut	Remove sections from each line of input
+date	Prints the current date and timestamp
+dd	Converts and copies files
+dmesg	Display startup messages
+echo	Displays a line of text
+ed	An old text editor
+grep	Regular expression matching program
+gzip	GNU Zip program for compressing files
+kill	Terminates running processes
+ln	Creates links to files and directories
+mail	Command-line mail client
+mkdir	Creates a directory
+more	Paginates a file
+mount	Maps a file system to a directory
+mv	Moves a file from one location to another
+netstat	Prints network statistics
+ping	Checks for the network reachability of other machines
+ps	Lists currently running processes
+pwd	Displays the current working directory
+rm	Removes files
+rmdir	Removes directories
+sed	Stream editor can be used to edit files
+sh	Bourne Shell
+sleep	Delays for a specific amount of time
+sort	Sorts the lines of input
+su	Change identity of user
+tar	Archiving program
+tcsh	Enhanced C Shell
+touch	Updates the time-stamp on a file or creates one
+umount	Unmount a currently mounted file system
+uname	Prints system information
+vi	A text editor
+orahome
