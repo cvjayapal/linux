@@ -1,0 +1,64 @@
+
+1. BIOS
+It stands for Basic Input/Output Sytem, When you start the machine bios loaded on to RAM (Random Access Memory)
+It does the system integirity check, and it displays the POST (Power On Self Test) screen, it contains the information about the hardwares which are inbuilted on main board.
+It searches for the boot loader program  from the boot devices such as HDD, FDD or CD Drive.
+The boot devices order will be set in  the BIOS Setup, you can access it by pressing Del or F2 Keys
+Once the boot loader program found on the boot device, it transfer the control to it.
+So the main work of the BIOS it to load and excute the MBR.
+
+2. MBR
+It stands for Master Boot Record.
+It is the 1 st 512 bytes of the boot device, like /dev/hda or /dev/sda.
+The MBR consists of three parts,
+
+MBR has the information about the Boot loader program
+The main work of the MBR is to load and excutes the GRUB.
+
+3. GRUB
+ It stands for Grand unified boot loader, this is the linux boot loader progarm.
+When it gets loaded on to RAM, It displays the splash screen.
+The splash screen contains the Menu corresponding to Kernel installed on the machine, if you have installed more than one kernel it wait for some seconds for user interaction. if no key pressed, it will boot with default kernel.
+The configuration file for the grub is /boot/grub/grub.conf (/etc/grub.conf symlink to that).
+From the above you can see that it has the information about the Kernel location.
+The main work of the GRUB is to load and excutes the Kernel.
+
+4. Kernel
+ Kernel is the heart of any operating system, Here kernel mounts the root file system ie mention the grub file
+It excutes the /sbin/init program
+This is the first program since the machine started, so the process id of init is 1
+initrd stands for initial ram disk
+it will be used by kernel as temporary root file system until kernel is booted and the real root file system is mounted. 
+It contains necessary drivers  inside, which helps it to access the hard drive partitions, and other hardware.
+
+5. Init
+ it looks for the configuration file /etc/initab
+There are 6 run level
+0 – Halt
+1 – Single user mode
+2 – Multiuser, without NFS
+3 – Multiuser mode
+4 – unused
+5 – X11
+6 – reboot
+It reads the /etc/initab file to decide  which runlevel to be enter during booting.
+It starts the program apropriate to the run level.
+It excutes the /etc/rc.d/rc.sysinit in sub shell to set the hostname, networking to the system
+Also excutes the /etc/init.d/functions to set umask, run the dmesg and mount the filesystems that are mentioned in /etc/fstab
+Then it excutes the /etc/rc.d/rc.*d/ programs. that is called run levels.
+
+6. Run Level
+As i told before you could see some message saying “starting sshd …. OK”. Those are the runlevel programs, 
+executed from the run level directory as defined by your run level.
+Depending upon default init level setting, the system will execute the programs from one of the following directories.
+Run level 0 – /etc/rc.d/rc0.d/
+Run level 1 – /etc/rc.d/rc1.d/
+Run level 2 – /etc/rc.d/rc2.d/
+Run level 3 – /etc/rc.d/rc3.d/
+Run level 4 – /etc/rc.d/rc4.d/
+Run level 5 – /etc/rc.d/rc5.d/
+Run level 6 – /etc/rc.d/rc6.d/
+Under the /etc/rc.d/rc*.d/ directories, you could find programs that start with S and K.
+Programs starts with S are used during startup. S for startup.
+Programs starts with K are used during shutdown. K for kill.
+There are numbers next to S and K in the program names. Those are the sequence number in which the programs should be started or killed.
