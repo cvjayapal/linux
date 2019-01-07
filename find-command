@@ -1,0 +1,87 @@
+1) Find Files Using Name in Current Directory
+Command:  find . -name <filename>
+eg: find . -name file.txt
+
+2) Find Files Under Home Directory
+command: find /home -name <Filename>
+
+3) Find Files Using Name and Ignoring Case
+Command: find /home -iname <filename>
+
+4) Find Directories Using Name
+command-syntax: find / -type d -name <Directoryname>
+eg: comand: find / -type d -name pranaya
+
+5) Find Files With 777 Permissions
+Command: find / -type f -perm 0777 -print
+
+6) Find Files Without 777 Permissions
+Command: find / -type f ! -perm 777
+
+7) Find SGID Files with 644 Permissions
+command: find / -perm 2644
+
+8) Find Sticky Bit Files with 551 Permissions
+Command: find / -perm 1551
+
+9) Find SUID Files
+Command: find / -perm /u=s
+
+10) Find Read Only Files
+Command: find / -perm /u=r
+
+11) Find Executable Files
+Command: find / -perm /a=x
+
+12) Find and remove single File
+Command:  find . -type f -name "<filename>" -exec rm -f {} \;
+
+13) Find all Empty Files
+Command: find /tmp -type f -empty
+         find /home/user -type f -empty
+
+14) Find all Empty Directories
+Command: find /tmp -type d -empty
+
+15) File all Hidden Files
+Command: find /tmp -type f -name ".*"
+         find / -type f -name ".*"
+
+16) Find Single File Based on User
+
+Command: find / -user root -name filename
+         find / -user prasad -name filename
+         find / -user pranaya -name filename
+
+
+17) Find all Files Based on User:
+
+Command: find /home -user root
+         find /home -user pranaya
+         
+18) Find Last 50 Days Modified Files
+Command: find / -mtime 50
+
+19) Find Last 50 Days Accessed Files
+Command: find / -atime 50
+
+20) Find Last 50-100 Days Modified Files
+
+Command: find / -mtime +50 –mtime -100
+
+
+21) Find Changed Files in Last 1 Hour
+Command: find / -cmin -60
+
+22) Find Modified Files in Last 1 Hour
+Command: find / -mmin -60
+
+23) Find Accessed Files in Last 1 Hour
+Command: find / -amin -60
+
+24) Find 50MB Files
+command: find / -size 50M
+
+25) Find Size between 50MB – 100MB
+
+Command: find / -size +50M -size -100M
