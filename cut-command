@@ -1,5 +1,7 @@
 CUT: cut is used for text processing. You can use this command to extract portion of text from a file by selecting columns.
 
+Syntax:cut -d "delimiter" -f (field number) file.txt
+
 1> create a file using cat or toch append some data or using existing file from some where in system.
 
 eg: create a file called test.txt
@@ -122,6 +124,8 @@ Output:
 root#/root#/bin/bash
 bala#/home/bala#/bin/bash
 
+
+
 10) Change Output Delimiter to Newline: In this example, each and every field of the cut command output is displayed in a separate line. We still used –output-delimiter,
 but the value is $’\n’ which indicates that we should add a newline as the output delimiter.
 
@@ -130,4 +134,61 @@ Output:
 bala
 /home/bala
 /bin/bash
+
+
+===============================================================
+11) delimter with space: 
+create a file called state.txt & add or apend some data.
+command: cat states.txt
+Andhra Pradesh
+Arunachal Pradesh
+Assam
+Bihar
+Chhattisgarh
+12) cut -f 1 state.txt
+Output:
+Andhra Pradesh
+Arunachal Pradesh
+Assam
+Bihar
+Chhattisgarh
+
+13) If -d option is used then it considered space as a field separator or delimiter:
+Command: cut -d " " -f 1 state.txt
+Output:
+Andhra
+Arunachal
+Assam
+Bihar
+Chhattisgarh
+
+14) Command prints field from first to fourth of each line from the file.
+Command:cut -d " " -f 1-4 state.txt
+Output:
+Andhra Pradesh
+Arunachal Pradesh
+Assam
+Bihar
+Chhattisgarh
+=======
+
+15) Application with high end:
+The foloowing example depicts how to use command output to the input of other command.
+Command:cat state.txt | cut -d ' ' -f 1 | sort -r
+Output:
+Chhattisgarh
+Bihar
+Assam
+Arunachal
+Andhra
+
+16) cat state.txt | head -n 3 | cut -d ' ' -f 1 > list.txt
+the above command first reads the file called state.txt amd from then it lists top 3 lines in the file and them gives first coloumn 
+and then cretes a new file called list.txt there the output store. to check output use the following command.
+
+Command: cat list.txt
+Output:
+Andhra
+Arunachal
+Assam.
 
