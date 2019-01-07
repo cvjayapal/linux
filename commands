@@ -1,0 +1,133 @@
+CUT: cut is used for text processing. You can use this command to extract portion of text from a file by selecting columns.
+
+1> create a file using cat or toch append some data or using existing file from some where in system.
+
+eg: create a file called test.txt
+
+#command : cat test.txt ## syntax is <cat filename>
+cat command for file oriented operations.
+cp command for copy files or directories.
+ls command to list out files and directories with its attributes.
+
+a) Select Column of Characters: To extract only a desired column from a file use -c option. 
+The following example displays 2nd character from each line of a file test.txt.
+command: cut -c2 test.txt
+Output:
+a
+p
+s
+
+b)Select Column of Characters using Range: Range of characters can also be extracted from a file by specifying start and end position
+delimited with -. The following example extracts first 3 characters of each line from a file called test.txt
+Command:  cut -c1-3 test.txt
+Output: cat
+cp
+ls
+
+c)Select Column of Characters using either Start or End Position:  Either start position or end position can be passed to cut command with -c option.
+
+The following specifies only the start position before the ‘-‘. 
+This example extracts from 3rd character to end of each line from test.txt file.
+
+command: cut -c3- test.txt
+Output: 
+t command for file oriented operations.
+ command for copy files or directories.
+ command to list out files and directories with its attributes.
+
+The following specifies only the end position after the ‘-‘. 
+This example extracts 8 characters from the beginning of each line from test.txt file.
+Command: cut -c-8 test.txt
+Output: 
+cat comm
+cp comma
+ls comma
+
+The entire line would get printed when you don’t specify a number before or after the ‘-‘ as shown below.
+Command: cut -c- test.txt
+Output:
+cat command for file oriented operations.
+cp command for copy files or directories.
+ls command to list out files and directories with its attributes.
+
+4>  Select a Specific Field from a File:
+Instead of selecting x number of characters, if you like to extract a whole field, 
+you can combine option -f and -d. The option -f specifies which field you want to extract, 
+and the option -d specifies what is the field delimiter that is used in the input file.
+
+The following example displays only first field of each lines from /etc/passwd file using the field delimiter : (colon). 
+In this case, the 1st field is the username. The file
+Command:  cut -d':' -f1 /etc/passwd
+Output: 
+root
+daemon
+bin
+sys
+sync
+games
+bala
+
+## This i will expalin after grep and pipe: 
+Note: Pranaya remind me
+############
+5) Select Multiple Fields from a File: 
+We can also extract more than one fields from a file or stdout.
+Below example displays username and home directory of users who has the login shell as “/bin/bash”.
+
+Command:  grep "/bin/bash" /etc/passwd | cut -d':' -f1,6
+Output:
+root:/root
+bala:/home/bala
+
+6) To display the range of fields specify start field and end field as shown below. 
+In this example, we are selecting field 1 through 4, 6 and 7.
+Command: grep "/bin/bash" /etc/passwd | cut -d':' -f1-4,6,7
+Output: 
+root:x:0:0:/root:/bin/bash
+bala:x:1000:1000:/home/bala:/bin/bash
+
+7) Select Fields Only When a Line Contains the Delimiter:
+In our /etc/passwd example, if you pass a different delimiter other than : (colon), cut will just display the whole line.
+
+In the following example, we’ve specified the delimiter as | (pipe), and cut command simply displays the whole line, 
+even when it doesn’t find any line that has | (pipe) as delimiter.
+Command:grep "/bin/bash" /etc/passwd | cut -d'|'  -f1
+Output:
+root:x:0:0:root:/root:/bin/bash
+bala:x:1000:1000:bala,,,:/home/bala:/bin/bash
+
+But, it is possible to filter and display only the lines that contains the specified delimiter using -s option.
+The following example doesn’t display any output, as the cut command didn’t find any lines that has | (pipe) as delimiter
+in the /etc/passwd file.
+
+Command: grep "/bin/bash" /etc/passwd | cut -d'|' -s -f1
+Output: none
+
+8) Select All Fields Except the Specified Fields: In order to complement the selection field list use option –complement.
+
+The following example displays all the fields from /etc/passwd file except field 7
+
+Command:  grep "/bin/bash" /etc/passwd | cut -d':' --complement -s -f7
+Output:
+root:x:0:0:root:/root
+bala:x:1000:1000:bala,,,:/home/bala
+
+9) Change Output Delimiter for Display: 
+By default the output delimiter is same as input delimiter that we specify in the cut -d option.
+
+To change the output delimiter use the option –output-delimiter as shown below. 
+In this example, the input delimiter is : (colon), but the output delimiter is # (hash).
+Command: grep "/bin/bash" /etc/passwd | cut -d':'  -s -f1,6,7 --output-delimiter='#'
+Output:
+root#/root#/bin/bash
+bala#/home/bala#/bin/bash
+
+10) Change Output Delimiter to Newline: In this example, each and every field of the cut command output is displayed in a separate line. We still used –output-delimiter,
+but the value is $’\n’ which indicates that we should add a newline as the output delimiter.
+
+Command: grep bala /etc/passwd | cut -d':' -f1,6,7 --output-delimiter=$'\n'
+Output: 
+bala
+/home/bala
+/bin/bash
+
