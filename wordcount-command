@@ -1,0 +1,47 @@
+The wc (word count) command in Unix/Linux operating systems is used to find out number of newline count, word count, byte 
+and characters count in a files specified by the file arguments. The syntax of wc command as shown below.
+
+Syntax: wc [options] filenames
+
+The following are the options and usage provided by the command.
+
+wc -l : Prints the number of lines in a file.
+wc -w : prints the number of words in a file.
+wc -c : Displays the count of bytes in a file.
+wc -m : prints the count of characters from a file.
+wc -L : prints only the length of the longest line in a file.
+
+eg: 
+1) create a file using cat
+cat > pranaya.txt
+Red Hat
+CentOS
+Fedora
+Debian
+Scientific Linux
+OpenSuse
+Ubuntu
+Xubuntu
+Linux Mint
+Pearl Linux
+Slackware
+Mandriva
+
+2) A Basic Example of WC Command: which gives us how many lines, words & characters in a given file.
+
+Command: wc pranaya.txt
+Output: 12  16 112 pranaya.txt
+
+3)  Count Number of Lines in a specified file.
+Command: wc -l pranaya.txt
+
+4)  Display Number of Words: which displays number of words in a file
+
+Command: wc -w pranaya.txt
+
+5)  Count Number of Bytes and Characters
+Command: wc -c pranaya.txt
+         wc -m pranaya.txt
+         
+6)  Display Length of Longest Line
+Command: wc -L pranaya.txt
