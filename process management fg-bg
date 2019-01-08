@@ -1,1 +1,85 @@
+Fore ground process: Which runs on the Standard output
+eg: ping 8.8.8.8 or ping google.com
 
+Signals: ctrl+c -- sigint
+
+Background Process: to run any task on back ground with out interrupting the current task.
+Resumes suspended jobs in the current environment by running them as background jobs.
+
+We can put a task (such as command or script) in a background by appending a & at the end of the command line. 
+The & operator puts command in the background and free up your terminal. The command which runs in background is called a job.
+We can type other command while background command is running. The syntax is:
+
+Syn: command & ## to run any command in the back ground process.
+script-name & ## to run any script in background.
+/path/to/command arg1 arg2 & ## any command with arguments and path in the background
+command-1 | command-2 arg1 & 
+command-1 | command-2 -arg1 -arg2 >/path/to/output &
+
+Examples: 
+1) Put the ls command in the background, enter:
+Command: ls * > output.txt & ## it lists all files in curernt directory, out put is redirected to the file Output.txt but the process done in back ground.
+
+2) command: ping 8.8.8.8 > ping.txt& ## continously pings google.com in back ground
+
+3) To find jobs which are running on background 
+Command: jobs 
+
+4) To see process IDs for JOB IDs in addition to the normal information pass the -l option:
+Command: jobs -l
+
+5) To see process IDs only, enter:
+Command: jobs -p
+
+6) How do we bring process running in the background to the foreground?
+Note: First, list the current jobs with jobs command, enter: jobs (or) jobs -l
+
+Syntax: %JOB-ID (OR) fg JOB-ID 
+
+7) To send back this job in the background hit CTRL-Z i.e. while holding the CTRL key, press z key. 
+This will suspend the current foreground job. Type the following command to send back the job in the background:
+Command: %2 & (or) bg %jobid ## %2 is the jobid.
+
+
+
+==========================================================================================================================
+
+8) Most of the time we login into remote server via ssh. If we start a shell script or command and we exit 
+(abort remote connection), the process / command will get killed. Sometime job or command takes a long time. 
+If we are not sure when the job will finish, then it is better to leave job running in background. 
+But, if we log out of the system, the job will be stopped and terminated by your shell.
+What do we do to keep job running in the background when process gets SIGHUP?
+
+Solution is Nohup: The answer is simple, use nohup command line-utility which allows us to run command/process 
+or shell script that can continue running in the background after we log out from a shell:
+
+Syntax: nohup command-name & 
+
+Note: 
+command-name : is name of shell script or command name. We can pass argument to command or a shell script.
+& : nohup does not automatically put the command it runs in the background; We must do that explicitly, by ending the command line with an & symbol.
+
+==============================================================
+
+Disown: To delete/remove jobs or to tell the shell not to send a HUP signal use disown command. 
+Remove jobs from the table of active job.
+Command: disown jobID 
+Command: disown # which deletes only stopped jobs.
+1) How do I remove all jobs?
+Command: disown -a
+After the above command we wont see the jobs on the screen.
+Command: jobs -l
+
+2) How do I remove only running jobs?
+
+Command:  disown -r
+
+3) How do I keep running job after I exit from a shell prompt in background?
+
+The SIGHUP (Hangup) signal is used by your system on controlling terminal or death of controlling process. 
+You can use SIGHUP to reload configuration files and open/close log files too. 
+In other words if you logout from your terminal all running jobs will be terminated. 
+To avoid this you can pass the -h option to disown command. 
+This option mark each jobID so that SIGHUP is not sent to the job if the shell receives a SIGHUP. The syntax is:
+Command: disown -h jobID
+eg: disown  -h  %1
