@@ -1,6 +1,6 @@
 CUT: cut is used for text processing. You can use this command to extract portion of text from a file by selecting columns.
 
-Syntax:cut -d "delimiter" -f (field number) file.txt
+Syntax:cut -d "delimiter" -f (field number) file.txt # delimeter should be any thing inside quataions like "," ":", " "
 
 1> create a file using cat or toch append some data or using existing file from some where in system.
 
@@ -76,7 +76,7 @@ Note: Pranaya remind me
 We can also extract more than one fields from a file or stdout.
 Below example displays username and home directory of users who has the login shell as “/bin/bash”.
 
-Command:  grep "/bin/bash" /etc/passwd | cut -d':' -f1,6
+Command:  grep "/bin/bash" /etc/passwd | cut -d':' -f1,6 
 Output:
 root:/root
 bala:/home/bala
