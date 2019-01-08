@@ -83,3 +83,12 @@ To avoid this you can pass the -h option to disown command.
 This option mark each jobID so that SIGHUP is not sent to the job if the shell receives a SIGHUP. The syntax is:
 Command: disown -h jobID
 eg: disown  -h  %1
+
+
+=======
+Notes: highend:
+Description	                                                           Command
+To see which jobs are still running jobs	                           jobs  jobs -l ps aux
+To put a command / script to the background	                         command & /path/to/command & /path/to/script arg1 &
+To bring a background job to the foreground	                         fg n %n
+To send a job to the background without canceling it	               bg n %n &
