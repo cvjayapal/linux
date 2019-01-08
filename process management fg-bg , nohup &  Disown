@@ -92,3 +92,5 @@ To see which jobs are still running jobs	                           jobs  jobs -
 To put a command / script to the background	                         command & /path/to/command & /path/to/script arg1 &
 To bring a background job to the foreground	                         fg n %n
 To send a job to the background without canceling it	               bg n %n &
+
+Note: n == Job id (use jobs command to see job id)..
