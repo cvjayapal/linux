@@ -17,4 +17,24 @@ Output: This is \ a backslash
 6) Command: echo "This is \" a quote and this is \\ a backslash"
 Output: This is " a quote and this is \ a backslash
 
-7)
+7) How to Avoid Shell Interpretation of metacharacters
+
+
+Sometimes we need to pass metacharacters to the command being run and do not want the shell to interpret them. 
+There are three options to avoid shell interpretation of metacharacters.
+
+Escape the metacharacter with a backslash (\). (See also Escaped Charaters) Escaping characters can be inconvenient to use when the command line contains several metacharacters that need to be escaped.
+Use single quotes (' ') around a string. Single quotes protect all characters except the backslash (\).
+Use double quotes (" "). Double quotes protect all characters except the backslash (\), dollar sign ($) and grave accent (`). Double quotes is often the easiest to use because we often want environment variables to be expanded.
+
+command: echo "\$9,800"
+Output: 9,800
+
+Command: balance=1234
+echo "My account balance is \$$balance; [as of (`date +%m/%d`)]"
+
+Output: My account balance is $1234; [as of (11/23)]
+
+Command: balance=1234
+echo 'My account balance is $balance; [as of (`date +%m/%d`)]'
+Output: My account balance is $balance; [as of (`date +%m/%d`)]
