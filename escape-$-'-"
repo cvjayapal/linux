@@ -1,0 +1,20 @@
+1) echo: will print as it is
+Command: echo "escape"
+Output: escape
+
+2)To dispaly today date:
+echo "Today is $(date)" ## there is difference between the command echo "Today is date " & echo "Today is $(date)" will see this while explaining.
+
+3) How to escape the $ special character: \$
+command:  echo "The \"Linux\" book cost \$7.98."
+Output: The "Linux" book cost $7.98.
+
+4) command substitution: backquotes very useful in shell scripting.
+
+5) Command: echo "This is \\ a backslash"
+Output: This is \ a backslash
+
+6) Command: echo "This is \" a quote and this is \\ a backslash"
+Output: This is " a quote and this is \ a backslash
+
+7)
