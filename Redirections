@@ -14,7 +14,7 @@ Input redirection: The '<' symbol is used for input(STDIN) redirection
 
 
 Many commands can accept input from a facility called standard input.
-By default, standard input gets its contents from the keyboard, but like standard output, it can be redirected. 
+By default, standard input gets its contents from the keyboard, but like standard output, it also can be redirected. 
 To redirect standard input from a file instead of the keyboard, the "<" character is used like this:
 
 Command:  sort < file_list.txt ## it is same as sort file_list.txt
