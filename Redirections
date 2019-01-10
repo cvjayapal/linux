@@ -30,7 +30,7 @@ These files are always present whenever a program is run. As explained before a 
 File                  	File Descriptor
 Standard Input STDIN	    0
 Standard Output STDOUT	  1
-Standard Error STDERR	    2
+Standard Error STDERR	   2
 
 By default, error stream is displayed on the screen. Error redirection is routing the errors to a file other than the screen.
 
