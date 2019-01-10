@@ -23,7 +23,20 @@ source ~/.bashrc
 
 6) to check with time: "date +%k:%m:%S"
 
+==================================================
+7) PS1='\$ '
+PS2='> '
+PS3='#? '
+PS4='+ 
 
+PS1    The value of this parameter is expanded (see PROMPTING below) and used as the primary prompt string.  The default value is ``\s-\v\$ ''.
+PS2    The value of this parameter is expanded as with PS1 and used as the secondary prompt string.  The default is ``> ''.
+PS3    The value of this parameter is used as the prompt for the select command (see SHELL GRAMMAR above).
+PS4    The value of this parameter is expanded as with PS1 and the value is printed before each command bash displays  during  an  execution  trace.
+
+Note: Ref: https://www.thegeekstuff.com/2008/09/bash-shell-take-control-of-ps1-ps2-ps3-ps4-and-prompt_command/
+
+=====================================================
 awk:	Pattern scanning and processing language
 bash:	The Bourne again Shell
 cat:	Concatenates files and prints onto standard output
