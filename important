@@ -21,6 +21,8 @@ alias c=clear
 source ~/.bashrc
 ======================
 
+6) to check with time: "date +%k:%m:%S"
+
 
 awk:	Pattern scanning and processing language
 bash:	The Bourne again Shell
