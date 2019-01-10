@@ -1,0 +1,142 @@
+Common Linux log files names and usage:
+
+/var/log/messages : General message and system related stuff
+/var/log/auth.log : Authenication logs
+/var/log/kern.log : Kernel logs
+/var/log/cron.log : Crond logs (cron job)
+/var/log/maillog : Mail server logs
+/var/log/qmail/ : Qmail log directory (more files inside this directory)
+/var/log/httpd/ : Apache access and error logs directory
+/var/log/lighttpd/ : Lighttpd access and error logs directory
+/var/log/boot.log : System boot log
+/var/log/mysqld.log : MySQL database server log file
+/var/log/secure or /var/log/auth.log : Authentication log
+/var/log/utmp or /var/log/wtmp : Login records file
+/var/log/yum.log : Yum command log file.
+
+
+====================================================
+/var/log/alternatives.log (Ubuntu/DEB)
+
+Alternitive logs information from update-alternatives into this log file.
+
+/var/log/httpd/access.log 
+
+Access Log file records incoming requests and all requests processed by apache. Such as HTTP get and post requests.
+These logs can be parsed by log parsers such as awstats or webalizer. This is configurable by the CustomLog directive.
+
+/var/log/httpd/error.log 
+
+All Apache errors and diagnostic information found while serving requests are stored here.  Location of the error.log file is set by ErrorLog Directive.
+
+ 
+
+/var/log/audit/audit.log
+
+Stores information from Linux Audit deamon (auditd). This log contains information on what users perform read/writes to . 
+An example is you can determine who changed a specific file.
+
+
+/var/log/auth.log  
+
+Contains system authorization information, including user logins and authentication machinsm that were used.
+
+/var/log/boot
+
+Contains information pertaining to the boot process after the kernel has loaded. Information such as system file check, mounting of the filesystem, starting firewall, starting network devices and starting services.
+
+
+/var/log/btmp
+
+This will contain failed login attempts. Use the 'last' command to view this log. Example: last -f /var/log/btmp |more
+
+ 
+
+/var/log/cron
+
+When crondaemon or anacron starts a cron job the information the information about the cron job is stored here. 
+
+ 
+
+/var/log/dmesg 
+
+Contains Kernel information about hardware and devices detected during the boot process.
+This file is overwritten when new messages are sent to it. Example: the next boot.
+
+ 
+
+/var/log/dpkg.log (Ubuntu/DEB)
+
+This has information that is logged when a package is installed or removed using the dpkg command. 
+
+ 
+
+/var/log/faillog
+
+Log file contains user failed login attempts. faillog is a command that access's the information. 
+
+ 
+
+/var/log/kern.log (Ubuntu/Deb, can be configured for Centos/Redhat)
+
+kern.log contains the logging from the kernels initialization at system bootup, as well as any kernel errors or informational messages that are sent from the kernel
+
+ 
+
+/var/log/lastlog
+
+Displays recent login information. This is a command that is run to view the information provided. 
+
+ 
+
+/var/log/maillog.log (Centos/Redhat)
+
+Information from the mail server that is running on your system. Example Sendmail logging information.
+
+ 
+
+/var/log/mail.log (Ubuntu/DEB) 
+
+Same information as Maillog.log for Centos/Redhat flavors.
+
+ 
+
+/var/log/mail
+
+This folder will contain additional logs provided by your mail server. Example: sendmail stores collected mail statistics in /var/log/mail/statistics.
+
+ 
+
+/var/log/messages (Centos/Redhat)
+
+Contains global system messages, including the messages logged during boot. Several things are logged in this file including mail, cron, daemon, kern, auth, etc.
+
+ 
+
+/var/log/sa
+
+Contains daily sar files collected by sysstat package. 
+
+/var/log/samba/ Contains log information stored by samba daemon. Used to connect to windows/linux filesystems.
+
+ 
+
+/var/log/setroubleshoot/ 
+
+SELinux uses setroubleshootd (SE Trouble Shoot Daemon) to notify about issues in the security context of files, and logs those information in this log file.
+
+/var/log/secure (Centos/Redhat)
+
+Information related to Authentication and authorization privileges. Exmample sshd logs all information here including unsuccessful attempts. 
+
+ 
+
+var/log/wtmp or /var/log/utmp 
+
+Contains login records. Using wtmp you can find out who is logged into the system. who command uses this file to display the information.
+
+/var/log/yum.log (Centos/Redhat)
+
+Information that is logged when a package is installed or removed is stored here. 
+
+ 
