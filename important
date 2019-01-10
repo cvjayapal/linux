@@ -16,7 +16,10 @@ Command: cat /proc/cpuinfo or lscpu
 Command: cat /proc/loadavg
 Exp: Load average is the average number of processes waiting to be executed by the operating system over a given time period.
 
-5)
+5)to make an alias command:  vim ~/.bashrc
+alias c=clear
+source ~/.bashrc
+======================
 
 
 awk:	Pattern scanning and processing language
