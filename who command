@@ -1,0 +1,84 @@
+WHO:
+
+If you run who command without any arguments, it will display account information (user login name, user’s terminal, 
+time of login as well as the host the user is logged in from) on your system similar to the one shown in the following output.
+Command:  who
+
+Output: 
+ravi		tty1	        2018-03-16	19:27
+tecmint	pts/0		2018-03-16	19:26	(192.168.56.1)
+root		pts/1		2018-03-16	19:27	(192.168.56.1)
+
+
+2) To print the heading of the columns displayed, use the -H flag as shown.
+Command: who -H
+Output: 
+NAME            LINE                   TIME             COMMENT
+ravi		        tty1	        2018-03-16   19:27
+tecmint	        pts/0		2018-03-16   19:26	(192.168.56.1)
+root	        	pts/1		2018-03-16   19:27	(192.168.56.1) 
+
+3) To print the login names and total number of logged on users, use the -q flag.
+
+Command: who -q
+
+Output:
+ravi   tecmint    root
+# users=3
+
+4) In case you want to show only hostname and user associated with stdin, use the -m switch.
+Command: who -m
+
+Output: tecmint	        pts/0		2018-03-16	19:26	(192.168.56.1)
+
+5)  Next, to add user’s message status as +, - or ?, use the -T option.
+
+Command: who -T
+
+Output:
+
+ravi	      +  tty1	        2018-03-16	19:27
+tecmint	    +  pts/0		2018-03-16	19:26	(192.168.56.1)
+root	      +  pts/1		2018-03-16	19:27	(192.168.56.1)
+
+6)  To view the time of last system boot, use the -b flag and adding the -u option allows for listing of logged on users in the same output.
+
+Command: who -b
+
+Output: system boot  2018-01-19 02:39
+
+7) Command: who -bu
+
+Output:
+                system boot  2018-03-16 19:25
+ravi		tty1		2018-03-16		19:27  00:33		2366
+tecmint	        pts/0	        2018-03-16	        19:26	 .              2332     (192.168.56.1)
+root		        pts/1		      2018-03-16		19:27	00:32           2423     (192.168.56.1)
+
+8)You can check the current runlevel with the -r option.
+Command:  who -r
+
+Output: run-level 3  2018-03-16 02:39
+
+9) The following command will print dead processes.
+
+Command: who -d
+
+Output:
+pts/1        2018-03-16 11:10              9986 id=ts/1  term=0 exit=0
+
+10)  Furthermore, to see active processes spawned by init, use the -p option.
+
+Command: who -p
+
+11) Last but not least, the -a flag allows for printing of default output combined with information from some of the options we have covered.
+
+Command:  who -a
+
+Output: 
+system boot  2018-06-16 02:39
+           run-level 3  2018-01-19 02:39
+LOGIN      tty1         2018-01-19 02:39              3258 id=1
+LOGIN      ttyS0        2018-01-19 02:39              3259 id=S0
+tecmnt   + pts/0        2018-03-16 05:33   .          20678 (208.snat-111-91-115.hns.net.in)
+           pts/1        2018-03-14 11:10              9986 id=ts/1  term=0 exit=0
