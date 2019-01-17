@@ -1,0 +1,105 @@
+Rpm is a powerful Package Manager for Red Hat, Suse and Fedora Linux. It
+can be used to build, install, query, verify, update, and remove/erase
+individual software packages. A Package consists of an archive of files,
+and package information, including name, version, and description:
+The RPM Package Manager
+-------------------------------- -
+RPM is a recursive acronym for RPM Package Manager.
+It used to be called the Red Hat Package Manager, but Red Hat changed its
+name to emphasis that other distributions use it too. The new official name
+is RPM Package Manager, and yes, that’s a self-referencing acronym (SRA),
+just like GNU.
+- RPM is the default package manager for Red Hat Linux systems.
+- RPM system consists of a local database, the rpm executable, rpm package
+files.
+- It deals with .rpm files, which contain the actual programs as well as
+various bits of meta-information about the package: what it is, where it
+came from, version information and info about package dependencies.
+- RPMs are the files (called packages) which contain the installable
+software; typically they have
+the .rpm suffix.
+RPM FACTS
+--------------------------------
+1. RPM is free - GPL
+The RPM Package Manager or RPM is a tool which was developed by Red Hat
+Software, who still maintain it, but released under the GNU General Public
+Licence (GPL) and has proven to be so popular, that a lot of other
+distribution manufacturers use it as well.
+RPM is a very versatile program which solves a lot of problems that a
+distributor of software typically faces:
+• Management of source files
+• Management of the build process
+• A distribution method and format for binary files, including pre- and
+postinstall scripts. RPMs can be created by anyone, not only the
+manufacturer of your distribution.
+2. stores info about packages in a database /var/lib/rpm
+/var/lib/rpm contains all the database necessary for managing all of the
+packages installed on your system in the form of rpm.
+The database stores information about installed packages such as file
+attributes and package prerequisites.
+When a certain system uses RPMs to install packages, a database of
+installed packages is stored in /var/lib/rpm. The database itself is in rpm
+format too, so it cannot be read directly. You will have to access the
+database using the rpm command. 
+
+
+Where to get RPMs
+-
+http://rpmseek.com
+http://rpmfind.net
+http://www.redhat.com
+http://freshrpms.net
+http://rpm.pbone.net
+http://dag.wieers.com
+http://rpmforge.net
+http://filewatcher.com
+Common Build Procedures
+- source code install - tarball (.tar, .tar.gz, .tgz, tar.bz, tar.tbz)
+- Configure/make/make install
+- Binary RPMs (.rpm)
+- Source RPMs (.srpm)
+Some Query Options
+$ rpm -ivh {rpm-file} Install the package
+$ rpm -ivh mozilla-mail-1.7.5-17.i586.rpm
+$ rpm -ivh --test mozilla-mail-1.7.5-17.i586.rpm
+$ rpm -Uvh {rpm-file} Upgrade package
+$ rpm -Uvh mozilla-mail-1.7.6-12.i586.rpm
+$ rpm -Uvh --test mozilla-mail-1.7.6-12.i586.rpm
+$ rpm -Fvh upgrades to a later version
+$ rpm -ev {package} Erase/remove/ an installed package
+$ rpm -ev mozilla-mail
+$ rpm -ev --nodeps {package} Erase/remove/ an installed package without
+checking for dependencies
+$ rpm -ev --nodeps mozilla-mail
+$ rpm -qa Display list all installed packages rpm -qa
+$ rpm -qa | less
+$ rpm -qi {package} Display installed information along with package
+version and short description
+$ rpm -qi mozilla-mail
+$ rpm -qf {/path/to/file} Find out what package a file belongs to i.e.
+find what package owns the file
+$ rpm -qf /etc/passwd 
+b.sadhiq
+ 65
+$ rpm -qf /bin/bash
+$ rpm -qc {pacakge-name} Display list of configuration file(s) for a
+package
+$ rpm -qc httpd
+$ rpm -qcf {/path/to/file} Display list of configuration files for a
+command
+$ rpm -qcf /usr/X11R6/bin/xeyes
+$ rpm -qa --last Display list of all recently installed RPMs
+$ rpm -qa --last
+$ rpm -qa --last | less
+$ rpm -qpR {.rpm-file}
+$ rpm -qR {package} Find out what dependencies a rpm file has
+$ rpm -qpR mediawiki-1.4rc1-4.i586.rpm
+$ rpm -qR bash
+$ rpm -qlp foo.rpm Which files are installed with foo.rpm?
+$ rpm -ivh --nodeps pants.rpm Installing package Ignoring Dependencies
+$ rpm -e foo ('e' for erase)
+$ rpm -i --prefix /new/directory package.rpm The --prefix and --relocate
+options should make the rpm command relocate a package to a new
+location.
+$ rpm -k <.rpm> we could verify the MD5 is OK
+$ rpm --rebuilddb 
