@@ -219,3 +219,245 @@ Step 3	edit required text (replace or delete or insert)
 Step 4	hit Esc key (exit from insert mode if you insert or replace text)
 
 Step 5	type	:wq
+
+==========================================
+High end:
+
+What is VI-editor?
+While in vi you can run AIX commands without exiting the editing session.
+The! creates a
+shell to execute the command that follows.
+1. :!ls will create a shell
+ 2. All files in the current directory are listed. Press return to exit the
+shell and return to the
+vi session or...
+3. While still in command mode, issue the :r snacks command
+4. The contents of snacks, in this case, are read into the vi file. By
+default, it will appear
+after the current line.
+If you need to run a series of commands without returning to vi after the
+first command is
+executed, enter :sh. When you have run all the commands, press to exit the
+shell
+and return to vi.
+Cursor movement
+ h - move left
+ j - move down
+ k - move up
+ l - move right
+ w - jump by start of words (punctuation considered words)
+ W - jump by words (spaces separate words)
+ e - jump to end of words (punctuation considered words)
+ E - jump to end of words (no punctuation)
+ b - jump backward by words (punctuation considered words)
+ B - jump backward by words (no punctuation)
+ 0 - (zero) start of line
+ ^ - first non-blank character of line
+ $ - end of line
+ G - Go To command (prefix with number - 5G goes to line 5)
+Note: Prefix a cursor movement command with a number to repeat it. For
+example, 4j moves down 4 lines.
+Insert Mode - Inserting/Appending text
+3) i - start insert mode at cursor
+4) I - insert at the beginning of the line
+5) a - append after the cursor
+6) A - append at the end of the line
+7) o - open (append) blank line below current line (no need to press
+return)
+8) O - open blank line above current line
+9) ea - append at end of word
+10) Esc - exit i
+
+ r - replace a single character (does not use insert mode)
+ J - join line below to the current one
+ cc - change (replace) an entire line
+ cw - change (replace) to the end of word
+ c$ - change (replace) to the end of line
+ s - delete character at cursor and subsitute text
+ S - delete line at cursor and substitute text (same as cc)
+ xp - transpose two letters (delete and paste, technically)
+ u - undo
+ . - repeat last command
+Marking text (visual mode)
+v - start visual mode, mark lines, then do command (such as y-yank)
+V - start Linewise visual mode
+o - move to other end of marked area
+Ctrl+v - start visual block mode
+O - move to Other corner of block
+aw - mark a word
+ab - a () block (with braces)
+aB - a {} block (with brackets)
+ib - inner () block
+iB - inner {} block
+Esc - exit visual mode
+Visual commands
+3. > - shift right
+4. < - shift left
+5. y - yank (copy) marked text
+6. d - delete marked text
+7. ~ - switch case
+Cut and Paste
+ yy - yank (copy) a line
+ 2yy - yank 2 lines
+ yw - yank word
+ y$ - yank to end of line
+ p - put (paste) the clipboard after cursor
+ P - put (paste) before cursor
+ dd - delete (cut) a line
+ dw - delete (cut) the current word
+ x - delete (cut) current character
+Exiting
+ :w - write (save) the file, but don't exit
+ :wq - write (save) and quit
+ :q - quit (fails if anything has changed)
+ :q! - quit and throw away changes 
+
+Search/Replace
+ /pattern - search for pattern
+ ?pattern - search backward for pattern
+ n - repeat search in same direction
+ N - repeat search in opposite direction
+ :%s/old/new/g - replace all old with new throughout file
+ :%s/old/new/gc - replace all old with new throughout file with
+confirmations
+Working with multip
+
+ :%s/^/hello/g Replace the begining of each line by “hello”
+ :%s/$/Harry/g Replace the end of each line by “Harry”
+ :%s/onward/forward/gi Replace “onward” by “forward” , case
+unsensitive
+ :%s/ *$//g Delete all white spaces
+ :g/string/d Delete all lines containing “string”
+ :v/string/d Delete all lines containing which didn't contain
+“string”
+ :s/Bill/Steve/ Replace the first occurence of “Bill” by “Steve” in
+current line
+ :s/Bill/Steve/g Replace “Bill” by “Steve” in current line
+ :%s/Bill/Steve/g Replace “Bill” by “Steve” in all the file
+ :%s/\r//g Delete DOS carriage returns (^M)
+ :%s/\r/\r/g Transform DOS carriage returns in returns
+ :%s#]\+>##g Delete HTML tags but keeps text
+ :%s/^\(.*\)\n\1$/\1/ Delete lines which appears twice
+ Ctrl+a Increment number under the cursor
+ Ctrl+x Decrement number under cursor
+ ggVGg? Change text to Rot13
+4. Case
+ Vu Lowercase line
+ VU Uppercase line
+ g~~ Invert case
+ vEU Switch word to uppercase
+ vE~ Modify word case
+ ggguG Set all text to lowercase
+ :set ignorecase Ignore case in searches
+ :set smartcase Ignore case in searches excepted if an uppercase
+letter is used
+ :%s/\<./\u&/g Sets first letter of each word to uppercase
+ :%s/\<./\l&/g Sets first letter of each word to lowercase
+ :%s/.*/\u& Sets first letter of each line to uppercase
+ :%s/.*/\l& Sets first letter of each line to lowercase
+ Read/Write files
+ :1,10 w outfile Saves lines 1 to 10 in outfile
+ :1,10 w >> outfile Appends lines 1 to 10 to outfile
+ :r infile Insert the content of infile
+ :23r infile Insert the content of infile under line 23
+ File explorer
+ :e . Open integrated file explorer
+ :Sex Split window and open integrated file explorer
+ :browse e Graphical file explorer
+ :ls List buffers
+ :cd .. Move to parent directory
+ :args List files
+ :args *.php Open file list
+ :grep expression *.php Returns a list of .php files contening
+expression
+ gf Open file name under cursor
+ Interact with Unix
+ :!pwd Execute the “pwd” unix command, then returns to Vi
+ !!pwd Execute the “pwd” unix command and insert output in file
+ :sh Temporary returns to Unix
+ $exit Retourns to Vi 
+
+ Alignment
+ :%!fmt Align all lines
+ !}fmt Align all lines at the current position
+ 5!!fmt Align the next 5 lines
+ Tabs
+ :tabnew Creates a new tab
+ gt Show next tab
+ :tabfirst Show first tab
+ :tablast Show last tab
+ :tabm n(position) Rearrange tabs
+ :tabdo %s/foo/bar/g Execute a command in all tabs
+ :tab ball Puts all open files in tabs
+ Window spliting
+ :e filename Edit filename in current window
+ :split filename Split the window and open filename
+ ctrl-w up arrow Puts cursor in top window
+ ctrl-w ctrl-w Puts cursor in next window
+ ctrl-w_ Maximise current window
+ ctrl-w= Gives the same size to all windows
+ 10 ctrl-w+ Add 10 lines to current window
+ :vsplit file Split window vertically
+ :sview file Same as :split in readonly mode
+ :hide Close current window
+ :only Close all windows, excepted current
+ :b 2 Open #2 in this window
+ Auto-completion
+ Ctrl+n Ctrl+p (in insert mode) Complete word
+ Ctrl+x Ctrl+l Complete line
+ :set dictionary=dict Define dict as a dictionnary
+ Ctrl+x Ctrl+k Complete with dictionnary
+8. Marks
+ mk Marks current position as k
+ ‘k Moves cursor to mark k
+ d’k Delete all until mark k
+Abbreviations
+ :ab pr printf("This is a Demo Ver \n"); Define pr as abbreviation of
+printf("This is a Demo Ver \n");
+ Text indent
+ :set autoindent Turn on auto-indent
+ :set smartindent Turn on intelligent auto-indent
+ :set shiftwidth=4 Defines 4 spaces as indent size
+ ctrl-t, ctrl-d Indent/un-indent in insert mode
+ >> Indent
+ << Un-indent
+ Syntax highlighting
+ :syntax on Turn on syntax highlighting
+ :syntax off Turn off syntax highlighting
+ :set syntax=perl Force syntax highlighting
+ How to Exit
+ :q[uit] Quit Vim. This fails when changes have been made.
+ :q[uit]! Quit without writing.
+ :cq[uit] Quit always, without writing. 
+b.sadhiq
+ 227
+ :wq Write the current file and exit.
+ :wq! Write the current file and exit always.
+ :wq {file} Write to {file}. Exit if not editing the last
+ :wq! {file} Write to {file} and exit always.
+ :[range]wq[!] [file] Same as above, but only write the lines in
+[range].
+ ZZ Write current file, if modified, and exit.
+ ZQ Quit current file and exit (same as ":q!").
+5. Editing a File
+ :e[dit] Edit the current file. This is useful to re-edit the
+current file, when it has been changed outside of Vim.
+ :e[dit]! Edit the current file always. Discard any changes to the
+current buffer. This is useful if you want to start all
+over again.
+ :e[dit] {file} Edit {file}.
+ :e[dit]! {file} Edit {file} always. Discard any changes to the
+current buffer.
+ gf Edit the file whose name is under or after the cursor. Mnemonic:
+"goto file".
+ Inserting Text
+ a Append text after the cursor [count] times.
+ A Append text at the end of the line [count] times.
+ i Insert text before the cursor [count] times.
+ I Insert text before the first non-blank in the line [count] times.
+ gI Insert text in column 1 [count] times.
+ o Begin a new line below the cursor and insert text, repeat [count]
+times.
+ O Begin a new line above the cursor and insert text, repeat [count]
+times.
+
