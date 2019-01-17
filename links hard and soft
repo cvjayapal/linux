@@ -1,0 +1,67 @@
+Files are arranged in directories (or folders if you prefer that term), and each file can be reached through a series of directories and 
+subdirectories from the root - correct? Yes ... BUT ... there are some times that the same file can be reached through several names,
+and on Unix and Linux systems this is known as a "link".
+There are two ways a link can be set up. 
+
+A Hard Link is where a file has two names which are both on an equal weighting, and both of the file names in the "inode table" point directly to
+the blocks on the disc that contain the data.
+You set up a hard link with an ln command without options - if the file ab.txt already exists and you want to give an additional name (hard link) to
+it, you'll write ln ab.txt cd.txt and then both names will have equal ranking. The only way you'll know that there's a link there is by doing a long listing
+and you'll see a link count of 2 rather than 1, and if you need to find out what's linked to what, use the -i option to ls. 
+
+Soft  Link :
+
+A Symbolic Link is where a file has one main name, but there's an extra entry in the file name table that refers any accesses back to the 
+main name. This is slighly slower at runtime that a hard link, but it's more flexible and much more often used in day to day admin work. 
+
+Symbolic links are set up using the ln command with the -s option - so for
+example
+ln -s ab.txt cd.txt
+will set up a new name cd.txt that points to the (existing) file ab.txt. If you do a log listing (ls -l) of a directory that contains a symbolic link,
+you'll be told that it's a symbolic link with an "l" in the first column, and you'll be told where the file links to in the file name column. Very
+easy to spot!
+
+1.Links have different inode numbers. 
+2.  ls -l command shows all links with second column value 1 and the link points to original file.
+3. Link has the path for original file and not the contents.
+4.Removing soft link doesn't affect anything but removing original file the link becomes dangling link which points to nonexistant file.
+
+In Softlink Inode is diff and the linked file will b a shortcut of first file.
+
+Hard Links :
+1. All Links have same inode number.
+2.ls -l command shows all the links with the link column(Second) shows No.of links.
+3. Links have actual file contents
+4.Removing any link just reduces the link count but doesn't affect other links.
+
+In Hardlink Inode is same and both are independent 
+
+Soft link can create directories but hard link can't. Hard links created within that particular file system but soft link cross that file system 
+
+Hard links canot cross partition
+A single inode number use to represent file in each file system. All hard links based upon inode number.
+So linking across file system will lead into confusing references for UNIX or Linux. 
+
+For example, consider following scenario
+* File system: /home
+* Directory: /home/jaya
+* Hard link: /home/jaya/file2
+* Original file: /home/jaya/file1
+
+Now you create a hard link as follows:
+$ touch file1
+$ ln file1 file2
+$ ls -l
+Output:
+-rw-r--r-- 2 sadhiq sadhiq 0 2006-01-30 13:28 file1
+-rw-r--r-- 2 sadhiq sadhiq 0 2006-01-30 13:28 file2
+Now just see inode of both file1 and file2:
+$ ls -i file1
+782263
+$ ls -i file2
+782263
+As you can see inode number is same for hard link file called file2 in inode table under /home file system. 
+Now if you try to create a hard link for /tmp file system it will lead to confusing references for UNIX or Linux file system.
+
+Is that a link no. 782263 in the /home or /tmp file system? To avoid this problem UNIX or Linux does not allow creating
+hard links across file system boundaries. Continue reading rest of the Understanding Linux file system series 
