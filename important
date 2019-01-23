@@ -36,6 +36,10 @@ PS4    The value of this parameter is expanded as with PS1 and the value is prin
 
 Note: Ref: https://www.thegeekstuff.com/2008/09/bash-shell-take-control-of-ps1-ps2-ps3-ps4-and-prompt_command/
 
+==========================================================================================================================
+how to kill zombie process?
+kill $(ps -A -ostat,ppid | awk '/[zZ]/ && !a[$2]++ {print $2}')
+
 =====================================================
 awk:	Pattern scanning and processing language
 bash:	The Bourne again Shell
