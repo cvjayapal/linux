@@ -85,3 +85,62 @@ Command: yum list all
 Command: yum grouplist
 
 21) Install all the default packages by group
+Command: yum groups install "Which Group we want (Development Tools)"
+
+22)Update all the default packages by group
+Command:  yum groups update "Development Tools"
+
+23) Remove all packages in a group
+Command:  yum groups remove "Development Tools"
+
+24) Display description and contents of a package group
+
+Command:  yum groups info 'Development Tools'
+
+25) Install particular architecture package
+
+Command: yum install {package-name}.{architecture}
+
+26) Display packages not installed via official RHN subscribed repos
+
+Command: yum list extras
+
+27) Display what package provides the file
+Command: yum whatprovides {dependency-1} {dependency-2}
+Command:  yum provides string
+Command: yum provides '*bin/nginx*'
+
+28) How to view and use yum history
+Command: yum history
+Command: yum history list
+Command: yum info ID
+Command: yum undo ID
+Command:  yum redo ID
+
+29) yum history list
+It provides some information we take necessary actions.
+
+1.ID – Transaction number.
+2.Login user – The name of the user whose login session was used to initiate a yum.
+3.Date and time – The date and time when a transaction was issued by yum.
+4.Action(s) – A list of actions that were performed during a transaction as follows:
+D or Downgrade – Package has been downgraded to an older version.
+E or Erase – Package has been removed.
+I or Install – New package has been installed.
+O or Obsoleting – Package has been marked as obsolete.
+R or Reinstall – Package has been reinstalled.
+U or Update – Package has been updated to a newer version.
+
+5.Altered – The number of packages that were affected by a yum, as follows:
+*lt; – Before the transaction finished, the rpmdb database was changed outside yum.
+> – After the transaction finished, the rpmdb database was changed outside yum.
+* – The transaction failed to finish.
+# – The transaction finished successfully, but yum returned a non-zero exit code.
+E – The transaction finished successfully, but an error or a warning was displayed.
+P – The transaction finished successfully, but problems already existed in the rpmdb database.
+s – The transaction finished successfully, but the –skip-broken command line option was used and certain packages were skipped.
+
+30) How do I undo / revert transactions?
+Command: yum history undo id
+Command:  yum history redo id
+
