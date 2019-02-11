@@ -1,0 +1,66 @@
+PATH is an environmental variable in Linux and other Unix-like operating
+systems that tells the shell which directories to search for executable
+files (i.e., ready-to-run programs) in response to commands issued by a
+user. It increases both the convenience and the safety of such operating
+systems and is widely considered to be the single most important
+environmental variable.
+Environmental variables are a class of variables (i.e., items whose values
+can be changed) that tell the shell how to behave as the user works at the
+command line (i.e., in a text-only mode) or with shell scripts (i.e., short
+programs written in a shell programming language). A shell is a program
+that provides the traditional, text-only user interface for Unix-like
+operating systems; its primary function is to read commands that are typed
+in at the command line and then execute (i.e., run) them. 
+
+Practical - Setting Path
+Login as root
+$id
+$echo $PATH
+$useradd john
+$passwd john
+$su - john
+$id
+Verify john's PATH
+$echo $PATH
+you cant find :/sbin:/usr/sbin so u cant run cmnd's fdisk, shred under
+the same.
+$fdisk -l
+will get command not found.
+So u can set path, but it's temporary for the shell.
+$PATH=$PATH=:/sbin:/usr/sbin
+To set under environment run
+$export PATH
+For permanent
+you can locate the above two cmnds under /etc/profile file, which
+run's always after login.
+Now checkk you will get the above added dir under john’s path. 
+
+$echo $PATH
+Now try
+$ fdisk -l
+Note-: The cmd is executed but fdisk binary will work only by uid 0
+(root), bcoz it's programmed like that.
+So search for the cmd in /sbin & /usr/sbin , which can run by other
+uid's.
+Now create a testscript under /opt and execute the script
+$vi /opt/testscript
+#Append the following
+ echo “ THIS IS MY SCRIPT”
+#Save
+$cd /opt
+set execute permisson
+$chmod +x /opt/testscript
+$./testscript # (./ means current path execution)
+But what if u want to run the script from any other directories under
+your filesystem hiriearchy.
+Then set the /opt dir to the users path as mentioned above or copy
+the script under the following PATH . (which is already set)
+set. For eg-:
+$PATH=$PATH:/opt
+$cd /
+$testscript
+or
+$cp /opt/testscript /bin or /usr/local/bin etc...
+Now try running the script
+$cd /
+$testscript 
