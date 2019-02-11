@@ -1,0 +1,364 @@
+Application Daemon are those which can be killed & will have no effect to
+the sysytem
+$ kill -15 <appd-pid>
+For eg. – firefox, openoffice, X server, etc...
+System Daemons are those which can be killed & will effect the system.
+$ kill -9 <sysd-pid>
+For eg – init, kerneld, ksoftirqd, khelper, kthread, kblockd 
+
+OBJECTIVES
+ Defining a process
+ Process states
+ Process management
+ Job control
+ System Information
+ Performance Related Information
+What is a Process?
+A process has many components and properties
+ exec thread
+ PID
+ priority
+ memory context
+ environment
+ file descriptors
+ security credentials
+How Processes Are Created
+One process “forks” a child, pointing to the same pages of memory, and
+marking the area as read-only.Then, the child “execs” the new command,
+causing a copy-on-write fault, thus copying to a new area of memory. A
+process can exec, without forking. The child maintains the process ID of
+the parent.
+Process Ancestry
+init is the first process started at boot time - always has PID 1.
+Except init, every process has a parent.
+Processes can be both a parent and a child at the same time.
+Understand the Multiuser Environment.
+One of the goals of UNIX was to enable a number of users to use the system
+simultaneously (multiuser capability). Because several users might also
+want to use several different programs simultaneously, mechanisms must be
+available to allow these programs to run simultaneously (multitasking
+capability).
+The implementation of a multiuser and multitasking system appears to be
+simultaneous in a single processor system, but this is only possible in a
+multiprocessor system. 
+
+Even in a single-processor system, advantages can be gained through
+multitasking because waiting times for input or output from processes can
+be used for other processes.
+UNIX implements preemptive multitasking—each process is allowed a maximum
+time with which it can work. When this time has expired, the operating
+system takes processor time away from the process and assigns it to another
+process waiting to run. Other operating systems (such as versions older
+than the MAC OS version X) do not intervene in this process cycle. Instead,
+control over the processor must be released by the running process before
+another process can run.
+This can lead to one process hijacking the processor, leaving other
+processes without processing time and blocking the system. The operating
+system coordinates access to the resources available in the system (hard
+drives, tapes, interfaces). If there is competition among processes, e.g.,
+for access to a tape device, only one process can be granted access. The
+others must be rejected. This coordination task is very complex and no
+operating system is able to implement an ideal solution. The classic
+problem involves a situation in which two or more processes exclusively
+need the same resources, as illustrated in the following resource conflict:
+The following describes the resource conflict:
+ Process A needs resources Res.1 and Res.2.
+ Process B needs resources Res.2 and Res.1.
+ Process A has received access to Res.1 and would now also like access to
+Res.2. In the meantime, however, B has already gained access to Res.2
+and, in turn, would like access to Res.1 as well.
+If these two processes wait until what they need is available, nothing more
+will happen-they are deadlocked.
+Multithreading is an extension of multitasking, and helps solve this
+problem. In multithreading, a number of parts independent from one another
+(threads) can be produced within a process.
+Multithreading increases the level of parallel processes with each thread
+needing to be administered, which makes the use of a multiprocessor system
+more valuable.
+A clear distinction should be made here between programs and processes: as
+a rule, a program exists only once in the system, but there can be several
+processes that perform the same program.If a number of users are active,
+both programs and processes can be used independently of one another (such
+as a program used to display directories). 
+
+Processes and Multitasking
+Terminology can be confusing
+Multiuser: system can simultaneously service more than one online
+terminal
+Multiprogramming: the system can execute more than one program at the
+“same” time
+Multitasking: system can execute two or more tasks at the “same” time
+In common usage, these all refer to the same thing
+Multitasking Operating Systems
+Multitasking OSs are designed to perform a complex juggling trick
+They must:
+ Allocate resources, such as CPU cycles and memory, and assign priorities
+so each process receives adequate attention
+ Higher priority jobs need more or larger CPU time-slices without
+neglecting lower priority jobs
+ Jobs that are waiting for some resource (such as user input, input from
+disk, or a shared output such as a printer) need to handled without
+wasting CPU time
+Multitasking on a Single CPU
+Obviously, a single CPU cannot run multiple process simultaneously. The OS
+simulates simultaneity by switching between tasks at a high rate. Each
+switch is a “time-slice” Since thousands or hundreds of thousands of CPU
+cycles can go by between user keystrokes, this gives the appearance of
+simultaneous operation.
+This resource allocation, priority processing, and time-slicing is all done
+by the scheduler Unix Scheduling Algorithm
+Unix schedules tasks in this order:
+ Highest priority task that is Ready-to-Run and loaded in memory and
+preempted
+ Ties for priority are broken by time spent waiting (also known as
+Round-Robin scheduling)
+ If no one is ready to run, the kernel idles until the next time-slice
+Unix Images and Processes
+Each process receives a unique numerical process identifier (pid) when it
+is started. Even if the same program is run multiple times, each instance
+will have a unique PID. A process has an image in RAM.
+Forks and Spawns:
+ When a process A is running, it can spawn another process B
+ It does this using the fork system call
+ B is said to be the child of A and A is known as the parent of B
+ Initially, the child and parent are virtually identical
+They each start with identical but independent copies of the RAM image, but
+being separate processes, they have unique PIDs. 
+
+The child then calls the system call exec using the command name and
+arguments inherited from the parent. From this point on, the child and
+parent can go their separate ways. However, since they both have access to
+the same open files and pipes, there is a potential for communication
+between them (interprocess communication). The shell is the parent of most
+of your processes The Shell is a Process. The principle process you
+interact with is the shell. The shell can run some commands (builtins)
+itself but for most commands, it forks a separate process. It usually waits
+for the command process to finish and then gives you a new shell prompt.
+What if you could tell the shell not to wait? You could then instruct the
+shell to do something else while the first command was running in the
+background Voila! Multiprocessing in action!
+Redhat Linux comparing with other Unices/Linuces, its shipped with plethora
+of options for monitoring system, utilization with regards to CPU, Memory
+and Disk etc.
+$ uptime
+ 18:18:16 up 3 days, 7:37, 5 users, load average: 0.00, 0.00, 0.00
+ Tells you exactly how long your system is been running from
+ 1mt 5mt 15mt
+ load average: 0.00, 0.00, 0.00
+$ cat /proc/meminfo
+ /proc
+
+Virutal Directory created in RAM. It runs whenever the system is running.
+It represents real time information and values stored in are accurate. It
+doesn’t occupy space on the disk
+$ cat /proc/cpuinfo  CPU Information A process has many components and
+properties. 
+
+Display and update information about the top cpu processes
+$ top
+Top displays the top 10 processes on the system and periodically updates
+this information. Top command is a combination of various commands to
+display CPU stats, memory, real time processes running in the system Top
+refresh every 5 seconds Process States. Unix uses several process states to
+determine the current condition of a process.
+ Runnable
+ Stopped
+ Page Wait
+ Non-Interruptable wait
+Typically for disk I/O or NFS requests
+ Sleeping
+ Idle
+ Terminated
+OPTIONS
+-q Renice top to -20 so that it will run faster. This can be used when the
+system is being very sluggish to improve the possibility of
+discovering the problem.
+-dcount Show only count displays, then exit. A display is considered to be
+one update of the screen. This option allows the user to select the
+number of displays he wants to see before top automatically exits.
+For intelligent terminals, no upper limit is set. The default is 1
+for dumb terminals.
+-stime Set the delay between screen updates to time seconds. The default
+delay between updates is 5 seconds.
+INTERACTIVE MODE
+h or ? Display a summary of the commands (help screen). Version
+information is included in this display.
+Q Quit top.
+K Send a signal ("kill" by default) to a list of processes
+R Change the priority (the "nice") of a list of processes.
+S Change the number of seconds to delay between displays (prompt for
+new number).
+O Change the order in which the display is sorted. This command is
+not available on all systems. The sort key names vary from system
+to system but usually include: "cpu", "res", "size", "time". The
+default is cpu.
+
+THE DISPLAY
+PID Every process runs have the process ID USER owner of the process
+PRI Current priority of the process.
+NICE Nice amount in the range -20 to 20, as established by the use of
+the command nice.
+RES Resident memory: current amount of process memory that resides
+in physical memory, given in kilobytes.
+STATE Current state (typically one of "sleep", "run", "idl", "zomb", or
+"stop").
+TIME Number of system and user cpu seconds that the process has used.
+SIZE Amount of memory the process needs
+CPU Percentage of available cpu time used by this process.
+COMMAND Name of the command that the process is currently running
+PROCESS STATE CODES
+Here are the different values that the s, stat and state output specifiers
+(header "STAT" or "S") will display to describe the state of a process.
+D Uninterruptible sleep (usually IO)
+R Running or runnable (on run queue)
+S Interruptible sleep (waiting for an event to complete)
+T Stopped, either by a job control signal or because it is being
+traced.
+W paging (not valid since the 2.6.xx kernel)
+X dead (should never be seen)
+Z Defunct ("zombie") process, terminated but not reaped by its
+parent. zombie -- dead process
+For BSD formats and when the stat keyword is used, additional characters
+may
+be displayed:
+high-priority (not nice to other users)
+N low-priority (nice to other users)
+L has pages locked into memory (for real-time and custom IO)
+s is a session leader
+l is multi-threaded (using CLONE_THREAD, like NPTL pthreads do)
++ is in the foreground process group
+Each process has a unique identification number (PID) which characterises
+the process. The command top allows you to kill processes using the “k”
+interactive command and entering the PID of the relevant process. To leave
+top to just press the “q” key. 
+
+“free” command
+$ free –m
+$ free –c 5 –s 3
+$ free -m
+total used free shared buffers cached
+Mem : 1003 981 22 0 91 688
+-/+ buffers/cache: 201 802
+Swap: 1058 0 1058
+As you can see, my system has 1 GB of ram and 981 MB are in use leaving
+22MB free. If you look at the cached column, it shows 688 MB free. This is
+a good thing as cached memory is basically free memory. This is where
+programs a user may have used earlier and then quit are stored, just on the
+off chance that the user might start up the program again. On the other
+hand, if the user starts up a new program, this cache can be replaced for
+the new program that is running. It should be mentioned that the caching
+works not just for recently loaded programs but also for data, i.e.
+recently used files and directories. Program loading is just a special case
+of loading a file.
+The -/+ buffers/cache section is will show you what is really going on. In
+my example, it shows that only 201 MB are in use and that 802 MB are free.
+The rest is just cached. What a user really needs to worry about is that
+last line. If you start seeing the swap file go into use that means that
+you are out of free ram and you are now using space on your hard disk to
+help out. If this starts happening, the best thing to do is run the top
+command and see what is taking up all the memory. Then, if it is an
+unneeded program, shut it down.
+Signals
+Signals are a software mechanism that are similar to a message of some
+sort. They can be trapped and handled or ignored
+Signals operate through two different system calls
+1) The kill system call
+2) The signal system call
+
+1) The kill System Call
+The kill system call sends a signal to a process kill is generally used to
+terminate a process. It requires the PID of the process to be terminated
+and the signal number to send as arguments.
+2) The Signal System Call
+The signal system call is much more diverse. When a signal occurs, the
+kernel checks to see if the user had executed a signal system call and was
+therefor expecting a signal. If the call was to ignore the signal, the
+kernel returns
+Otherwise, it checks to see if it was a trap or kill signal If not, it
+processes the signal If it was a trap or kill signal, the kernel checks to
+see if core should be dumped and then calls the exit routine to terminate
+the user process. 
+
+Common Unix Signals
+$kill -l
+SIGHUP Hang-up
+SIGINT Interrupt
+SIGQIT Quit
+SIGINS Illegal Instruction
+SIGTRAP Trace Trap
+SIGKILL Kill
+SIGSYS Bad argument to system call
+SIGPIPE Write on pipe with no one to read it
+SIGTERM Software termination signal from kill
+SIGSTOP Stop signal
+See /usr/include/sys/signal.h
+Signal Acceptance
+There are a couple of possible actions to take when a signal occurs
+ Ignore it
+ Process it
+ Terminate
+
+The superuser can send signals to any process.
+Normal users can only send signals to their own processes
+Process Termination
+A process is terminated by executing an exit system call or as a result of
+a kill signal. When a process executes an exit system call, it is first
+placed in a zombie state. In this state, it doesn't exist anymore but may
+leave timing information and exit status for its parent process. A zombie
+process is removed by executing a wait system call by the parent process.
+Process Cleanup
+The termination of a process requires a number of cleanup actions
+These actions include:
+Releasing all memory used by the process
+Reducing reference counts for all files used by the process
+Closing any files that have reference counts of zero
+Releasing shared text areas, if any
+Releasing the associated process table entry, the proc structure
+This happens when the parent issues the wait system call, which returns the
+terminated child's PID
+kill - signal a process
+kill is somewhat strangely named
+Sends the specified signal to a process
+Syntax: kill [-sig_no] pid
+ kill -l (display list of signals) 
+ 
+  -sig_no - signal number to send
+ pid - process id of process to receive signal
+
+Default signal is TERM sig_no is 15, or request-process-termination
+kill -9 pid terminates the process with extreme prejudice. As usual, you
+can only kill your own processes unless you are the superuser.
+$ kill -9 <PID>
+$ kill –l -> lists all available signals
+$ killall
+$ pidof <pidname>
+$ pgrep <pidname>
+$ pkill <pidname>
+Job Control
+Job control refers to the ability to selectively stop (suspend) the
+execution of processes and continue (resume) their execution at a later
+point. A job is one or more processes started from a single command line.
+By default, only one job can be run in the foreground. This means that when
+a job is being executed in the foreground the command line is unavailable.
+When the job
+has finished executing the command prompt is reissued.
+It is also possible to suspend jobs and/or run multiple jobs in the
+background, in which case the command line is still available in the
+foreground, although any output from running background jobs will still be
+displayed at the terminal. You can see the jobs currently running or
+stopped in the background using the jobs command.
+The syntax for the jobs command is shown below:
+jobs option(s)
+Common jobs options are:
+Option Explanation:
+l Shows the job number, its PID, its status, and its name
+p Shows just the PID of running jobs
+Issuing the jobs command without any options will show a list of all
+running, stopped and
+suspended background jobs.
+An example of using the job command is illustrated below:
+$ jobs -l
+[1]- 1229 Running tail -n5 -f /var/log/secure
+[2]+ 1230 Stopped joe fred
+In the above example there are two jobs in the background, one running and
+one stopped.
