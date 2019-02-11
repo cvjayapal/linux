@@ -1,0 +1,111 @@
+cron-cronology–sequence cronological order-date-wise
+Cron job are used to schedule commands to be executed periodically i.e. to
+setup commands which will repeatedly run at a set time, you can use the
+cron jobs.
+crontab is the command used to install, deinstall or list the tables used
+to drive the cron daemon in Vixie Cron. Each user can have their own
+crontab, and though these are files in /var/spool/cron/crontabs, they are
+not intended to be edited directly. You need to use crontab command for
+editing or setting up your own cron jobs.
+To edit your crontab file, type the following command:
+$ crontab -e
+Syntax of crontab
+Your cron job looks like as follows:
+1 2 3 4 5 /path/to/command arg1 arg2
+Where,
+ 1: Minute (0-59)
+ 2: Hours (0-23)
+ 3: Day (0-31)
+ 4: Month (0-12 [12 == December])
+ 5: Day of the week(0-7 [7 or 0 == sunday])
+ /path/to/command - Script or command name to schedule
+Same above five fields structure can be easily remembered with following
+diagram:
+* * * * * command to be executed
+- - - - -
+| | | | |
+| | | | ----- Day of week (0 - 7) (Sunday=0 or 7)
+| | | ------- Month (1 - 12)
+| | --------- Day of month (1 - 31)
+| ----------- Hour (0 - 23)
+------------- Minute (0 - 59) 
+
+Example(s)
+If you wished to have a script named /root/backup.sh run every day at 3am,
+my crontab entry would look like as follows:
+crond* -----> Binary or App server daemon
+/etc/rc.d/init.d/crond -----> Initscript to start crond server
+/etc/crontab -----> System crontab file
+ mins hrs DOM MOY DOW
+ 00-59 00-23 1-31 1-12 0-7 (0=Sun 1=Mon, 2=Tue, 3=Wed,4=Thu, 5=Fri,
+6=Sat and 7=Sun)
+ Each of the time-related fields may contain:
+ A '*', which matches everything, or matches any value
+ A single integer, which matches exactly
+ Two integers seperated by a dash, matching a range of values ie
+8-10 in the hr field would match 8am,9am and 10am.
+8-10,13 would match 8am,9am,10am and 1pm
+ A comma-seperated series of ints or ranges, matching any listed value
+ */2 in the hr field refers to midnote, 2am, 4am and so forth
+ie the cmd is executed every 2 hrs
+ 0-10/2 in the hr field refers to midnite, 2am, 4am, 6am, 8am and 10am
+ Note:
+ A crontab entry is considered to match the current time when the min
+and hr fields match the curr time and the mth field matches the
+current month
+ An entry is considered to match the current date when the day of month
+field [3rd] matches the current day of the mth OR the day of week
+[5th] field matches the current day of the week:
+IT IS NOT NECESSARY THAT BOTH THE DAY OF THE MTH AND DAY OF THEWEEK
+MATCH!
+ If both the time and date match the current time and date the cmd is
+executed!
+ Never put a '*' in the first field unless u want the cmd to run every
+minute
+ You MAY hand-edit this file but it is never necessary since run-parts
+does everything. Simply put a shell script in the appropriate
+/etc/cron.*/ dirs
+Also the crond* daemon need not be restart. It will do just that every
+minute anyway
+Example: Users often forget to shutdown their machines and go home. Hence,
+machine should auto shutdown at 11 pm 
+
+/etc/crontab
+Install your cronjob:# crontab –e
+00 23 * * * root /sbin/shutdown -h now
+b) Append following entry:
+0 3 * * * /root/backup.sh
+Run five minutes after midnight, every day:
+5 0 * * * /path/to/command
+Run at 2:15pm on the first of every month:
+15 14 1 * * /path/to/command
+Run at 10 pm on weekdays:
+0 22 * * 1-5 /path/to/command
+Run 23 minutes after midnigbt, 2am, 4am ..., everyday:
+23 0-23/2 * * * /path/to/command
+Run at 5 after 4 every sunday:
+5 4 * * sun /path/to/command
+If you run many sites, you can use this tip to make managing your cron jobs
+easier. To minimize the clutter, create a /etc/cron.5min directory and have
+crontab read this directory every five minutes.
+*/5 * * * * root run-parts /etc/cron.5min
+45 * * * * /usr/bin/lynx -source http://example.com/cron.php
+45 * * * * /usr/bin/wget -O - -q -t 1 http://www.example.com/cron.php
+45 * * * * curl --silent --compressed http://example.com/cron.php
+00 11,16 * * * /home/sadhiq/bin/incremental-backup
+ 00 – 0th Minute (Top of the hour)
+ 11,16 – 11 AM and 4 PM
+ * – Every day
+ * – Every month
+00 09-18 * * * /home/ramesh/bin/check-db-status
+ * – Every day of the week
+ 00 – 0th Minute (Top of the hour)
+ 09-18 – 9 am, 10 am,11 am, 12 am, 1 pm, 2 pm, 3 pm, 4 pm, 5 pm, 6 pm
+ * – Every day
+ * – Every month
+ * – Every day of the week
+*/10 * * * * /home/sadhiq/check-disk-space
+
+ crontab –l --> To list your crontab jobs 
+ crontab –r --> To remove or erase all crontab jobs 
+ 
