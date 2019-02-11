@@ -27,7 +27,7 @@ the same.
 $fdisk -l
 will get command not found.
 So u can set path, but it's temporary for the shell.
-$PATH=$PATH=:/sbin:/usr/sbin
+$PATH=$PATH:/sbin:/usr/sbin
 To set under environment run
 $export PATH
 For permanent
