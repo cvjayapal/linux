@@ -1,0 +1,298 @@
+Archiving means that you take 10 files and combine them into one file, with
+no difference in size. If you start with 10 100KB files and archive them,
+the resulting single file is 1000KB. On the other hand, if you compress
+those 10 files, you might find that the resulting files range from only a
+few kilobytes to close to the original size of 100KB, depending upon the
+original file type.
+ll of the archive and compression formats in this chapter — zip, gzip,
+bzip2, and tar — are popular, but
+Zip:
+  zip is probably the world's most widely used format. That's because of its
+almost universal use on Windows, but zip and unzip are well supported among
+all major (and most minor) operating systems,
+Gzip :
+  gzip was designed as an open-source replacement for an older Unix program,
+compress. It's found on virtually every Unix-based system in the world,
+including Linux and Mac OS X, but it is much less common on Windows. If
+you're sending files back and forth to users of Unix-based machines, gzip
+is a safe choice.
+Bzip2:
+  The bzip2 command is the new kid on the block. Designed to supersede gzip,
+bzip2 creates smaller files, but at the cost of speed. That said, computers
+are so fast nowadays that most users won't notice much of a difference
+between the times it takes gzip or bzip2 to compress a group of files.
+Practical:
+  zip both archives and compresses files, thus making it great for sending
+multiple files as email attachments, backing up items, or for saving disk
+space. 
+
+Create
+$mkdir -p /opt/test/zip_dir;cd /opt/test/zip_dir
+Append man pages to a file
+$man ls > file-ls;cat /etc/fstab > file-fstab;cat /root/anaconda.cfg >
+file-anaconda
+$ls -lh
+$ls -al
+Zip the files to man-file.zip
+$zip man-file.zip *
+$ls -lF 
+
+$ man ls > file-ls.txt;cat /etc/fstab > file.txt;cat /root/anaconda.cfg > file-anaconda.txt;man fdisk > file1.cfg;man fstab > fstab.cfg;man man >
+man.cfg 
+
+Try compressing the files created using zip and verify the size of moby.zip
+files
+$ zip -0 moby.zip1 *.txt
+$ ls -l
+$ zip -1 moby.zip2 *.cfg
+$ ls -l
+$ zip -9 moby.zip3 *.cfg
+$ ls -l
+
+Try Password protected zip
+$ zip -P 12345678 backup.zip *.txt
+$ zip -e backup.zip *.txt
+
+$unzip –l
+$unzip --ql backup.zip
+verbose
+unzip -v moby2.zip 
+
+list zipped files
+$ unzip -l moby3.zip
+List type
+$ unzip -t moby2.zip
+Now try any the following same as zip under any dir
+gzip paradise_lost.txt
+$ ls -l 
+
+
+ ls -l
+$ gzip -c paradise_lost.txt > paradise_lost.txt.gz
+$ gzip -c -1 moby-dick.txt > moby-dick.txt.gz
+$ ls -l
+$ gzip -c -9 moby-dick.txt > moby-dick.txt.gz
+$ ls -l
+$ gzip -t paradise_lost.txt.gz
+$ gunzip -c paradise_lost.txt.gz > paradise_lost.txt
+$ bzip2 moby-dick.txt
+$ ls -l
+$ bzip2 -c moby-dick.txt > moby-dick.txt.bz2
+$ ls -l
+$ bzip2 -c -1 moby-dick.txt > moby-dick.txt.bz2
+$ bzip2 -c -9 moby-dick.txt > moby-dick.txt.bz2
+$ ls -l
+$ bunzip2 moby-dick.txt.bz2
+$ bunzip2 -c moby-dick.txt.bz2 > moby-dick.txt
+$ bunzip2 -t paradise_lost.txt.gz 
+
+Get the Best Compression Possible with zip  -[0-9]
+It's possible to adjust the level of compression that zip uses when it does
+its job. The zip command uses a scale from 0 to 9, in which 0 means "no
+compression at all" (which is like tar, as you'll see later), 1 means "do
+the job quickly, but don't bother compressing very much," and 9 means
+"compress the heck out of the files, and I don't mind waiting a bit longer
+to get the job done." The default is 6, but modern computers are fast
+enough that it's probably just fine to use 9 all the time. 
+
+Password-Protect Compressed Zip Archives
+ -P
+ -e
+The Zip program allows you to password-protect your Zip archives using the
+-P option. You shouldn't use this option. It's completely insecure, as you
+can see in the following example (the actual password is 12345678):
+unzip
+Expanding a Zip archive isn't hard at all. To create a zipped archive, use
+the zip command; to expand that archive, use the unzip command. 
+
+
+Archive with Tar:
+
+Archive and Compress Files with tar and gzip
+ -zcvf
+If you look back at "Archive and Compress Files Using gzip" and "Archive
+and Compress Files Using bzip2" and think about what was discussed there,
+you'll probably start to figure out a problem. What if you want to compress
+a directory that contains 100 files, contained in various subdirectories?
+If you use gzip or bzip2 with the -r (for recursive) option, you'll end up
+with 100 individually compressed files, each stored neatly in its original
+subdirectory. This is undoubtedly not what you want. How would you like to
+attach 100 .gz or .bz2 files to an email? Yikes!
+That's where tar comes in. First you'd use tar to archive the directory and
+its contents (those 100 files inside various subdirectories) and then you'd
+use gzip or bzip2 to compress the resulting tarball. Because gzip is the
+most common compression program used in concert with tar, we'll focus on
+that.
+You could do it this way:
+$mkdir -p /mnt/common/moby-dick
+$cd /mnt/common/moby-dick
+$ man ls > file-ls.txt;cat /etc/fstab > file.txt;cat /root/anaconda.cfg >
+file-anaconda.txt;man fdisk > file1.cfg;man fstab > fstab.cfg;man man >
+man.cfg
+$cd ..
+$pwd
+/mnt/common/
+$ ls -l moby-dick/*
+$ tar -cf moby1.tar moby-dick/ | gzip -c > moby1.tar.gz
+$ ls -l
+That method works, but it's just too much typing! There's a much easier way
+that should be your default. It involves two new options for tar: -z (or --
+gzip), which invokes gzip from within tar so you don't have to do so
+manually, and -v (or --verbose), which isn't required here but is always
+useful, as it keeps you notified as to what tar is doing as it runs.
+$ ls -l moby-dick/*
+$ ls -l
+The usual extension for a file that has had the tar and then the gzip
+commands used on it is .tar.gz; however, you could use .tgz and .tar.gzip
+if you like.
+Note - It's entirely possible to use bzip2 with tar instead of gzip. Your
+command would look like this (note the -j option, which is where bzip2
+comes in):
+$tar –cvzf moby.tar.gz moby-dick
+$ tar -jcvf moby.tar.bz2 moby-dick/
+In that case, the extension should be .tar.bz2, although you may also use
+.tar.bzip2, .tbz2, or .tbz. Yes, it's very confusing that using gzip or
+bzip2 might both result in a file ending with .tbz. This is a strong
+argument for using anything but that particular extension to keep confusion
+to a minimum.
+Test Files That Will Be Untarred and Uncompressed
+$ tar –jvtf moby.tar.bz2
+
+Before you take apart a tarball (whether or not it was also compressed
+using gzip), it's a really good idea to test it. First, you'll know if the
+tarball is corrupted, saving yourself hair pulling when files don't seem to
+work. Second, you'll know if the person who created the tarball
+thoughtfully tarred up a directory containing 100 files, or instead
+thoughtlessly tarred up 100 individual files, which you're just about to
+spew all over your desktop.
+To test your tarball (once again assuming it was also zipped using gzip),
+use the -t (or --list) option.
+
+$ tar -zvtf moby.tar.gz
+This tells you the permissions, ownership, file size, and time for each
+file. In addition, because every line begins with moby-dick/, you can see
+that you're going to end up with a directory that contains within it all
+the files and subdirectories that accompany the tarball, which is a relief.
+Be sure that the -f is the last option because after that you're going to
+specify the name of the .tar.gz file. If you don't, tar complains:
+$ tar -zvft moby.tar.gz
+ tar: You must specify one of the '-Acdtrux' options
+ Try 'tar --help' or 'tar --usage' for more information.
+Now that you've ensured that your .tar.gz file isn't corrupted, it's time
+to actually open it up, as you'll see in the following section.
+Note - If you're testing a tarball that was compressed using bzip2, just
+use this command instead:
+$ tar -jvtf moby.tar.bz2
+Untar and Uncompress Files
+ -zxvf
+To create a .tar.gz file, you used a set of options: -zcvf. To untar and
+uncompress the resulting file, you only make one substitution: -x (or --
+extract) for -c (or --create).
+ $ ls -l
+ $ tar -zxvf moby.tar.gz
+ $ ls -l
+Make sure you always test the file before you open it, as covered in the
+previous section, "Test Files That Will Be Untarred and Uncompressed." That
+means the order of commands you should run will look like this:
+$ tar -zvtf moby.tar.gz
+$ tar -zxvf moby.tar.gz
+Note - If you're opening a tarball that was compressed using bzip2, just
+use this command instead:
+$ tar -jxvf moby.tar.bz2
+Repeat with different path
+$ tar –cvf /mnt/backup/sam.tar /opt/test/zip_dir/*
+Archive & compress with gzip
+$ tar –cvf /mnt/backup/ramu.tar.gz /opt/test/zip_dir/*
+$ pushd /mnt/backup
+List before extracting
+$ tar –tvf ramu.tar.gz 
+
+Understand the following
+$ mkdir ramu;tar –zxvf ramu.tar.gz ramu/
+$ ls ramu/
+$ rm ramu/*
+Also try and understand
+$ cat ramu.tar.gz | gunzip -d | tar -xvf – /mnt/backup/ramu
+$ ls /mnt/backup/ramu/
+$ rm -rf /mnt/backup/ramu/*
+$ gzcat ramu.tar.gz | tar -xvf - /mnt/backup/ramu
+Finding files and archiving them
+You can make a tarball of only certain types of files from a directory with
+the following one-liner:
+$mkdir /mnt/common/test
+$ find /mnt/common/moby-dick/ -name "*.txt" | xargs tar -zcpf
+reports.tar.gz
+$ find /mnt/common/moby-dick/ -name "*.txt" | xargs tar -jcpf
+reports.tar.bz2
+Now check
+untar in a different directory
+If you've got a gzipped tarball and you want to untar it in a directory
+other than the one you're in, do the following:
+$ cd /mnt/backup
+$ zcat reports.tar.gz | ( cd ./otherdir; tar zxvf - )
+$ ls
+Understand the above cmd , note -: “-“ is used in after the arguments given
+to tar.
+Extract individual files from a tarball
+If you need a file that you've put into a tarball and you don't want to
+extract the whole file, you can do the following.
+First, get a list of the files and find the one you want
+$ cd /mnt/common/moby-dick
+$ tar -zltf moby1.tar.gz
+Then extract the one you want
+$ tar zxvf moby1.tar.gz file-anaconda.txt
+Backup everything with tar
+To make a backup of everything in a particular directory, first do this
+$ cd /mnt/common/moby-dick/
+$ ls -a > backup.all
+If you don't really want *everything*, you can also edit backup.all and get
+rid of things you don't want 
+
+To make the tarball, just do this:
+$ tar -cvf newtarfile.tar `cat backup.all`
+(remember, those are backtics)
+Extracting Specific Files
+Extract a file called etc/default/sysstat from config.tar.gz tarball:
+$ tar –cvzf /opt/test/config.tar.gz /mnt/backup/ramu
+$ tar -ztvf config.tar.gz
+$ tar -zxvf config.tar.gz <any file>
+$ tar -xvf {tarball.tar} {path/to/file}
+Some people prefers following syntax:
+$ tar --extract --file={tarball.tar} {file}
+Extract a directory called css from cbz.tar:
+$ tar --extract --file=cbz.tar css
+Wildcard based extracting
+You can also extract those files that match a specific globbing pattern
+(wildcards). For example, to extract from cbz.tar all files that begin with
+pic, no matter their directory prefix, you could type:
+Note before attempting the following you have to create tar files as
+cbz.tar with he files you are going to extract.
+$ tar -xf cbz.tar --wildcards --no-anchored 'pic*'
+To extract all php files, enter:
+$ tar -xf cbz.tar --wildcards --no-anchored '*.php'
+ -x: instructs tar to extract files.
+ -f: specifies filename / tarball name.
+ -v: Verbose (show progress while extracting files).
+ -j : filter archive through bzip2, use to decompress .bz2 files.
+ -z: filter archive through gzip, use to decompress .gz files.
+ --wildcards: instructs tar to treat command line arguments as globbing
+patterns.
+ --no-anchored: informs it that the patterns apply to member names
+after any / delimiter.
+Have you ever seen this error when using tar?
+$ tar -czf etc.tgz /etc
+Removing leading `/' from member names
+Tar is removing the leading / from the archive file, and warning you about
+it. Although you can redirect STDERR to /dev/null, doing so can result in
+missed errors. Instead, use tar with the -P or --absolute-names switch.
+They do the same thing: leave the leading / in the archived files.
+$ tar -czPf etc.tgz /etc 
+When you untar the archive without -P, the leading / will still equate to
+your current working directory. Use the -P when untarring to restore from
+archive to the absolute path name. For example:
+The following creates ./etc (dot, slash, etc)
+$ tar -xzf etc.tgz
+This overwrites /etc (slash, etc)!
+$ tar -xzPf etc.tgz 
+
+
