@@ -1,7 +1,7 @@
 Grep: 
 
  create a file:
-Command: cat demo_file
+Command: cat > demo_file
 
 THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
 this line is the 1st lower case line in this file.
