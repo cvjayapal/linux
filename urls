@@ -39,3 +39,14 @@ mount and un mount: https://docs.oracle.com/en/cloud/iaas/compute-iaas-cloud/stc
 https://www.computerhope.com/issues/ch001898.htm
 https://docs.oracle.com/en/cloud/iaas/compute-iaas-cloud/stcsg/unmounting-storage-volume-windows-instance.html
 https://docs.oracle.com/en/cloud/iaas/compute-iaas-cloud/stcsg/unmounting-storage-volume-windows-instance.html
+
+Tls 1.1 to 1.2: 
+https://docs.microsoft.com/en-us/security/solving-tls1-problem
+https://www.pcisecuritystandards.org/documents/Migrating-from-SSL-Early-TLS-Info-Supp-v1_1.pdf?agreement=true&time=1498138739969
+https://stackoverflow.com/questions/45382254/update-net-web-service-to-use-tls-1-2
+https://benperk.github.io/msdn/2014/2014-11-using-tls-1-2-with-wcf.html
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Oracle.html#Oracle.Concepts.HugePages
+https://support.microsoft.com/en-us/help/2960358/microsoft-security-advisory-vulnerability-in-the-net-framework-may-13
+
+Quicksight:
+https://docs.aws.amazon.com/quicksight/latest/user/working-with-aws-vpc.html
