@@ -1,0 +1,19 @@
+sudo lsof -i -P -n | grep LISTEN
+ss
+ss -lptun
+netstat -lptun
+l--Display listening server sockets
+p- Show the PID and name of the program to which each socket belongs
+t-tcp
+u-udp
+n- Don’t resolve names
+
+-i : Look for listing ports
+-P : Inhibits the conversion of port numbers to port names for network files. Inhibiting the conversion may make lsof run a little faster. It is also useful when port name lookup is not working properly.
+nmap --- which is an open source tool for network exploration and security auditing.We are going to use nmap to find and list open ports in Linux
+
+sudo nmap -sT -O localhost
+nmap hostname
+nmap -v -A hostname
+nmap -sA ip or hostname or Network
+ 
