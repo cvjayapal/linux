@@ -16,4 +16,7 @@ sudo nmap -sT -O localhost
 nmap hostname
 nmap -v -A hostname
 nmap -sA ip or hostname or Network
+nmap -PN hostname or Ip
+nmap --reason hostname
+
  
